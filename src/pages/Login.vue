@@ -50,12 +50,25 @@ export default {
   }),
   methods: {
     doLogin() {
-      if (!this.username || !this.password) {
-        this.dialog = true;
-        return false;
-      }
-      console.log(this.username + " ... " + this.password);
-      this.$router.push("/");
+      this.$http(
+        {
+          method:'post',
+          url:'/auth/login',
+          data:"username="+this.username+"&password="+this.password
+        }
+      ).then(res => {
+        if(res.status !== 204){
+          this.verify().then(() => {
+            console.log("666666666")
+
+          }).catch(() => {
+            this.$router.push("/login");
+          });
+          console.log("error");
+        }else{
+          this.$router.push("/index/dashboard");
+        }
+      });
     }
   }
 };

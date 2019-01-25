@@ -41,9 +41,18 @@ var menus = [
     title: "权限管理",
     path:"/authority",
     items: [
-      { title: "权限管理", path: "/list" },
+      { title: "权限管理", path: "/privilege" },
       { title: "角色管理", path: "/role" },
       { title: "人员管理", path: "/member" }
+    ]
+  },
+  {
+    action: "input",
+    title: "订单管理",
+    path: "/order",
+    items: [
+      {title: "订单",path: "/normal"},
+      {title: "异常订单",path: "/inormal"}
     ]
   }
 ]

@@ -124,17 +124,38 @@
         this.oldBrand = null;
       },
       editBrand(oldBrand){
+        // 修改标记
+        this.isEdit = true;
+        // 控制弹窗可见：
+        this.show = true;
+        // 获取要编辑的brand
+        this.oldBrand = oldBrand;
+        // this.oldBrand.categories = [
+        //   {
+        //     "id": 76,
+        //     "name": "手机",
+        //     "parentId": 75,
+        //     "isParent": false,
+        //     "sort": 1
+        //   }
+        // ];
         // 根据品牌信息查询商品分类
         this.$http.get("/item/category/bid/" + oldBrand.id)
-          .then(({data}) => {
-            // 修改标记
-            this.isEdit = true;
-            // 控制弹窗可见：
-            this.show = true;
-            // 获取要编辑的brand
-            this.oldBrand = oldBrand
+          .then(
+            ({data}) => {
+            console.log(data);
             // 回显商品分类
             this.oldBrand.categories = data;
+          });
+      },
+      deleteBrand(oldBrand){
+        this.$http.delete("/item/brand/" + oldBrand.id)
+          .then(() => {
+            this.$message.success("删除成功！");
+            this.getDataFromServer();
+          })
+          .catch(() => {
+            this.$message.error("删除失败！");
           })
       },
       closeWindow(){
